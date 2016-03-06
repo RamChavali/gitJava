@@ -1,0 +1,102 @@
+################################################################## FIRST
+brew update
+Updated Homebrew from c97e73a to bf22344.
+==> New Formulae
+bde                        gnu-complexity             mongo-orchestration      
+bzr-colo                   jflex                      pinfo                    
+castxml                    kobalt                     platformio               
+commandbox                 kommit                     rtv                      
+dropbox-uploader           libucl                     s-search                 
+emp                        mkdocs                     snakemake                
+exomizer                   mlton                      terraform-inventory      
+==> Updated Formulae
+amazon-ecs-cli             git                        nuxeo                    
+ammonite-repl              git-lfs                    nvm                      
+ansible                    git-vendor                 omniorb                  
+app-engine-go-64           gitbucket                  open-scene-graph         
+appscale-tools             glide                      openrtsp                 
+arangodb                   gnuplot                    openssl                  
+artifactory                godep                      osquery                  
+asciinema                  gource                     packer                   
+assimp                     gpac                       pam_yubico               
+ats2-postiats              groonga                    passenger                
+avro-tools                 groovy                     pdal                     
+awscli                     groovysdk                  pdf2htmlex               
+azure-cli                  gtk+3                      pgroonga                 
+basex                      harfbuzz                   pianobar                 
+bazel                      heroku-toolbelt            pianod                   
+caddy                      idris                      planck                   
+cake                       imagemagick                ploticus                 
+carthage                   ipmitool                   pngquant                 
+cassandra                  irssi                      postgrest                
+caudec                     jenkins                    protobuf-swift           
+checkstyle                 jvgrep                     proxychains-ng           
+chromaprint                kubernetes-cli             puddletag                
+chuck                      lbzip2                     pushpin                  
+cimg                       letsencrypt                pyenv                    
+cjdns                      libass                     pyvim                    
+clamav                     libebur128                 qcachegrind              
+cloc                       libgroove                  radare2                  
+cmus                       libpagemaker               rdup                     
+collectd                   libquicktime               rethinkdb                
+compcert                   libspatialite              ruby-build               
+cpprestsdk                 libssh                     rust                     
+cpulimit                   libssh2                    sbt                      
+cromwell                   libtorrent-rasterbar       scmpuff                  
+dcd                        macvim                     shibboleth-sp            
+dcmtk                      mapnik                     snag                     
+debianutils                mariadb                    solr                     
+devd                       mediaconch                 spaceman-diff            
+dfu-util                   mediatomb                  sqlmap                   
+diff-so-fancy              menhir                     squid                    
+discount                   mercurial                  sslscan                  
+dmd                        mesos                      stunnel                  
+docker                     metabase                   synfig                   
+docker-cloud               minidlna                   tarantool                
+docker-compose             minizinc                   tbb                      
+docker-gen                 mitmproxy                  terraform                
+dos2unix                   mjpegtools                 tesseract                
+dpkg                       mkvdts2ac3                 tippecanoe               
+echoprint-codegen          mkvtomp4                   transmission             
+elixir                     mlt                        unbound                  
+eprover                    moc                        unpaper                  
+exiftool                   montage                    v8                       
+ffmpeg                     mpd                        vim                      
+ffmpeg2theora              mpv                        walkmod                  
+ffmpegthumbnailer          nasm                       watson                   
+ffms2                      nghttp2                    wine                     
+flow                       nifi                       winetricks               
+flyway                     node                       wireshark                
+ford                       node-build                 wolfssl                  
+fwknop                     nomad                      xerces-c                 
+gdm                        noti                       yeti                     
+geocode-glib               nspr                       ykpers                   
+ghi                        nsq                        youtube-dl               
+gifify                     nss                        zurl                     
+==> Deleted Formulae
+synfigstudio
+################################################################## SECOND
+brew install jmeter --with-plugins
+==> Downloading https://www.apache.org/dyn/closer.cgi?path=jmeter/binaries/apach
+==> Best Mirror http://mirrors.gigenet.com/apache/jmeter/binaries/apache-jmeter-
+######################################################################## 100.0%
+==> Downloading http://jmeter-plugins.org/downloads/file/JMeterPlugins-Standard-
+==> Downloading from http://jmeter-plugins.org/files/JMeterPlugins-Standard-1.3.
+######################################################################## 100.0%
+==> Downloading http://jmeter-plugins.org/downloads/file/ServerAgent-2.2.1.zip
+==> Downloading from http://jmeter-plugins.org/files/ServerAgent-2.2.1.zip
+######################################################################## 100.0%
+==> Downloading http://jmeter-plugins.org/downloads/file/JMeterPlugins-Extras-1.
+==> Downloading from http://jmeter-plugins.org/files/JMeterPlugins-Extras-1.3.1.
+######################################################################## 100.0%
+==> Downloading http://jmeter-plugins.org/downloads/file/JMeterPlugins-ExtrasLib
+==> Downloading from http://jmeter-plugins.org/files/JMeterPlugins-ExtrasLibs-1.
+######################################################################## 100.0%
+==> Downloading http://jmeter-plugins.org/downloads/file/JMeterPlugins-WebDriver
+==> Downloading from http://jmeter-plugins.org/files/JMeterPlugins-WebDriver-1.3
+######################################################################## 100.0%
+==> Downloading http://jmeter-plugins.org/downloads/file/JMeterPlugins-Hadoop-1.
+==> Downloading from http://jmeter-plugins.org/files/JMeterPlugins-Hadoop-1.3.1.
+######################################################################## 100.0%
+🍺  /usr/local/Cellar/jmeter/2.13: 1,925 files, 108.6M, built in 1 minute 7 seconds
+
