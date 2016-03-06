@@ -1,0 +1,24 @@
+brew install android-sdk
+==> Downloading https://homebrew.bintray.com/bottles/android-sdk-24.4.1_1.yosemi
+######################################################################## 100.0%
+==> Pouring android-sdk-24.4.1_1.yosemite.bottle.tar.gz
+Warning: Could not fix /tmp/android-build-build-temp-74102/install-darwin-x86_64/lib/libz.1.dylib in /usr/local/Cellar/android-sdk/24.4.1_1/tools/qemu/darwin-x86_64/qemu-system-aarch64
+Warning: Could not fix /tmp/android-build-build-temp-74102/install-darwin-x86_64/lib/libz.1.dylib in /usr/local/Cellar/android-sdk/24.4.1_1/tools/qemu/darwin-x86_64/qemu-system-mips64el
+Warning: Could not fix /tmp/android-build-build-temp-74102/install-darwin-x86_64/lib/libz.1.dylib in /usr/local/Cellar/android-sdk/24.4.1_1/tools/qemu/darwin-x86_64/qemu-system-x86_64
+==> Caveats
+Now run the 'android' tool to install the actual SDK stuff.
+
+The Android-SDK is available at /usr/local/opt/android-sdk
+
+You may need to add the following to your .bashrc:
+  export ANDROID_HOME=/usr/local/opt/android-sdk
+
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+==> Summary
+🍺  /usr/local/Cellar/android-sdk/24.4.1_1: 1,476 files, 138.6M
+
+
+
+#########
+NOTE - added to .bash_profile instead per http://apple.stackexchange.com/questions/181562/how-to-find-bashrc-or-zshrc
