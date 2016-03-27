@@ -16,15 +16,23 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
-@SuppressWarnings("unused")
-public class test{
+public class add_card {
 
+	@SuppressWarnings("unused")
 	@Test
-	public void test() throws Exception {
+	public void test() throws Exception{
+
+		//--------------------------------------------------------------------------------------DATE
 		
+		// Print datetime for reference.
+		System.out.println("\n" + new String(new char[100]).replace("\0", "-")+ "\n");
+		System.out.println("datetime ref: " + LocalDateTime.now() + "\n");
+		System.out.println("\n" + new String(new char[100]).replace("\0", "-")+ "\n");
+		
+		//--------------------------------------------------------------------------------------SETUP
+		
+		// Load map containing locators and input values
 		PropertiesReader properties = PropertiesReader.getInstance();
-		String cardToBeRemoved;
-		boolean cardOnFile = false;
 		
 		// Files + Desired Capabilities
 		File appDir = new File("src");
@@ -35,79 +43,192 @@ public class test{
 		cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "50");
 		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 		
-		// Instantiate new driver object.
+		//--------------------------------------------------------------------------------------VARS
+		boolean cardOnFile = false;
+		
+		
+		//--------------------------------------------------------------------------------------TEST
+		
+		// Launch App.
 		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
+		System.out.println("\t...status: "+properties.get("appLaunchedMssg"));
 		
-		// ---------------------------------------------------------------------- [1] message 
-		
-		// Print datetime for reference.
-		System.out.println("\n" + new String(new char[100]).replace("\0", "-")+ "\n");
-		System.out.println("datetime ref: " + LocalDateTime.now() + "\n");
-		System.out.println("\n" + new String(new char[100]).replace("\0", "-")+ "\n");
-		
-		// ---------------------------------------------------------------------- [2] login
-		
-		// Check that navbar element is visible.
+		// -- click navbar element
 		try {
-			driver.findElements(By.className(properties.get("navBarClass")));
-			System.out.println("\t...navigating user to login screen");
-		} catch (NoSuchElementException e) {
-			System.out.println("ERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}	
-		
-		// Navigate to login screen & Login.
-		driver.findElementByClassName(properties.get("navBarClass")).click();
-		driver.findElementByName(properties.get("navAccountName")).click();
-		driver.findElementById("com.curbside.nCurbside:id/button_sign_in").click();
-		driver.findElementById(properties.get("inputEmailID")).sendKeys(properties.get("emailStr"));
-		driver.findElementById(properties.get("inputPassID")).sendKeys(properties.get("passStr"));
-		driver.findElementById(properties.get("submitLoginID")).click();
-		
-		// Check that login is successful.
-		try {
-			driver.findElementById(properties.get("logoutLinkID"));
-			System.out.println("\t...login successful");
-		} catch (NoSuchElementException e) {
-			System.out.println("ERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement navBarElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("navBarClass"))));
+			navBarElem.click();
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
 			System.out.println("\t...exiting program.");
 			System.exit(0);
 		}
+		System.out.println("\t...status: "+properties.get("navBarClickedMssg"));
 		
-		// ---------------------------------------------------------------------- [3] cards
-		
-		// Check that navbar element is visible.
+		// -- click 'Manage Cards' from nav bar
 		try {
-			driver.findElements(By.className(properties.get("navBarClass")));
-			System.out.println("\t...navigating user to manage cards");
-		} catch (NoSuchElementException e) {
-			System.out.println("ERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement navCardsElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.name(properties.get("navCardsName"))));
+			navCardsElem.click();
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
 			System.out.println("\t...exiting program.");
 			System.exit(0);
 		}
+		System.out.println("\t...status: "+properties.get("navCardsClickedMssg"));
 		
-		// Navigate to manage cards screen & check if card(s) on file. 
-		driver.findElementByClassName(properties.get("navBarClass")).click();
-		driver.findElementByName(properties.get("navCardsName")).click();
-		if (!driver.findElements(By.id(properties.get("submitNextID"))).isEmpty() ||
-			!driver.findElements(By.id(properties.get("removeCardID"))).isEmpty()) {
-			//what to add here? apparently works without populating?
-		} else {
-			throw new Exception ("\t...unable to verify if card(s) on file");
+		// -- click 'Sign In'
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement linkSigninElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("linkSigninID"))));
+			linkSigninElem.click();
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
 		}
+		System.out.println("\t...status: "+properties.get("navSigninClickedMssg"));
 		
-		// Adding to print card on file.
-		if (driver.findElements(By.id(properties.get("submitNextID"))).isEmpty()) {
-			System.out.format("\t\t...verdict: Card on file, %s.", driver.findElementById(properties.get("viewCCTextID")).getText());
-		} else if (driver.findElements(By.id(properties.get("removeCardID"))).isEmpty()) {
-			System.out.println("\t\t...verdict: No card on file.");
-		} else {
-			throw new Exception ("\t...unable to verify status.");
+		// -- enter input [email]
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement inputEmailElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("inputEmailID"))));
+			inputEmailElem.sendKeys(properties.get("emailStr"));
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
 		}
+		System.out.println("\t...status: "+properties.get("enteredEmailMssg"));
 		
-		// Will Return.
-		System.out.println(">> reached a stopping point, will return.");
+		// -- enter input [password]
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement inputPassElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("inputPassID"))));
+			inputPassElem.sendKeys(properties.get("passStr"));
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
+		}
+		System.out.println("\t...status: "+properties.get("enteredPassMssg"));
+		
+		// -- click 'Sign In' button
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement submitLoginElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("submitLoginID"))));
+			submitLoginElem.click();
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
+		}
+		System.out.println("\t...status: "+properties.get("btnSignInClickedMssg"));
+		
+		// -- print account details for reference
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement logoutLinkElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("logoutLinkID"))));
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
+		}
+		String accountNameDisplayIDText = driver.findElementById(properties.get("accountNameDisplayID")).getText();
+		String accountEmailDisplayIDText = driver.findElementById(properties.get("accountEmailDisplayID")).getText();
+		String accountPhoneDisplayIDText = driver.findElementById(properties.get("accountPhoneDisplayID")).getText();
+		System.out.println("\t\t> account name: "+accountNameDisplayIDText);
+		System.out.println("\t\t> account email: "+accountEmailDisplayIDText);
+		System.out.println("\t\t> account phone: "+accountPhoneDisplayIDText);
+		
+		// -- click navbar element
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement navBarElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("navBarClass"))));
+			navBarElem.click();
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
+		}
+		System.out.println("\t...status: "+properties.get("navBarClickedMssg"));
+		
+		// -- click 'Manage Cards' from nav bar
+		try {
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			WebElement navCardsElem = wait.until(
+			        ExpectedConditions.visibilityOfElementLocated(By.name(properties.get("navCardsName"))));
+			navCardsElem.click();
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
+		}
+		System.out.println("\t...status: "+properties.get("navCardsClickedMssg"));
+	
+		// -- check if account has at least 1 card on file
+		try {
+			if (!driver.findElements(By.id(properties.get("submitNextID"))).isEmpty()) {
+				cardOnFile = false;
+			} else if (!driver.findElements(By.name(properties.get("addPayCardName"))).isEmpty()) {
+				cardOnFile = true;
+				WebDriverWait wait = new WebDriverWait(driver, 10);
+				WebElement addPayCardElem = wait.until(
+				        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("addPayCardName"))));
+				addPayCardElem.click();
+			} 
+		} catch (Exception e) {
+			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+			System.out.println("\t...exiting program.");
+			System.exit(0);
+		} 
+		System.out.println("\t...status: card on file="+cardOnFile);
+		
+//		// -- add new card (using if/else if for 2 possible flows)
+//		if (cardOnFile) {
+//			// --/-- click button to 'Add Payment Card'
+//			try {
+//				WebDriverWait wait = new WebDriverWait(driver, 10);
+//				WebElement addPayCardElem = wait.until(
+//				        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("addPayCardName"))));
+//				addPayCardElem.click();
+//			} catch (NoSuchElementException e) {
+//				System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
+//				System.out.println("\t...exiting program.");
+//				System.exit(0);
+//			}
+//			System.out.println("\t...status: "+properties.get("btnAddPayCardClickedMssg"));
+//		}
+		
+		
+		System.out.println("DONE for now.");
+		System.exit(0);	
 	}
-
 }
+
+/*
+ Not working, seriously need to incorporate helper methods and WAITS!
+ 
+ public WebElement getWhenVisible(By locator, int timeout) {
+    WebElement element = null;
+    WebDriverWait wait = new WebDriverWait(driver, timeout);
+    element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    return element;
+}
+
+public void clickWhenReady(By locator, int timeout) {
+    WebDriverWait wait = new WebDriverWait(driver, timeout);
+    WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+    element.click();
+}
+
+http://stackoverflow.com/questions/12041013/selenium-webdriver-fluent-wait-works-as-expected-but-implicit-wait-does-not
+ */
