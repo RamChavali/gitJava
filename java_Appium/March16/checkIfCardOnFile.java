@@ -44,18 +44,15 @@ public class add_card {
 		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 		
 		//--------------------------------------------------------------------------------------VARS
+		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
+		System.out.println("\t...status: "+properties.get("appLaunchedMssg"));
+		WebDriverWait wait = new WebDriverWait(driver, 10);
 		boolean cardOnFile = false;
-		
 		
 		//--------------------------------------------------------------------------------------TEST
 		
-		// Launch App.
-		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
-		System.out.println("\t...status: "+properties.get("appLaunchedMssg"));
-		
 		// -- click navbar element
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement navBarElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("navBarClass"))));
 			navBarElem.click();
@@ -68,7 +65,6 @@ public class add_card {
 		
 		// -- click 'Manage Cards' from nav bar
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement navCardsElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.name(properties.get("navCardsName"))));
 			navCardsElem.click();
@@ -81,7 +77,6 @@ public class add_card {
 		
 		// -- click 'Sign In'
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement linkSigninElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("linkSigninID"))));
 			linkSigninElem.click();
@@ -94,7 +89,6 @@ public class add_card {
 		
 		// -- enter input [email]
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement inputEmailElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("inputEmailID"))));
 			inputEmailElem.sendKeys(properties.get("emailStr"));
@@ -107,7 +101,6 @@ public class add_card {
 		
 		// -- enter input [password]
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement inputPassElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("inputPassID"))));
 			inputPassElem.sendKeys(properties.get("passStr"));
@@ -120,7 +113,6 @@ public class add_card {
 		
 		// -- click 'Sign In' button
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement submitLoginElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("submitLoginID"))));
 			submitLoginElem.click();
@@ -133,7 +125,6 @@ public class add_card {
 		
 		// -- print account details for reference
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement logoutLinkElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("logoutLinkID"))));
 		} catch (Exception e) {
@@ -150,7 +141,6 @@ public class add_card {
 		
 		// -- click navbar element
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement navBarElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("navBarClass"))));
 			navBarElem.click();
@@ -163,7 +153,6 @@ public class add_card {
 		
 		// -- click 'Manage Cards' from nav bar
 		try {
-			WebDriverWait wait = new WebDriverWait(driver, 10);
 			WebElement navCardsElem = wait.until(
 			        ExpectedConditions.visibilityOfElementLocated(By.name(properties.get("navCardsName"))));
 			navCardsElem.click();
@@ -180,10 +169,6 @@ public class add_card {
 				cardOnFile = false;
 			} else if (!driver.findElements(By.name(properties.get("addPayCardName"))).isEmpty()) {
 				cardOnFile = true;
-				WebDriverWait wait = new WebDriverWait(driver, 10);
-				WebElement addPayCardElem = wait.until(
-				        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("addPayCardName"))));
-				addPayCardElem.click();
 			} 
 		} catch (Exception e) {
 			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
@@ -196,7 +181,6 @@ public class add_card {
 //		if (cardOnFile) {
 //			// --/-- click button to 'Add Payment Card'
 //			try {
-//				WebDriverWait wait = new WebDriverWait(driver, 10);
 //				WebElement addPayCardElem = wait.until(
 //				        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("addPayCardName"))));
 //				addPayCardElem.click();
@@ -210,7 +194,7 @@ public class add_card {
 		
 		
 		System.out.println("DONE for now.");
-		System.exit(0);	
+		driver.quit();
 	}
 }
 
