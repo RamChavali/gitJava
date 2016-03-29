@@ -2,11 +2,13 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -16,203 +18,160 @@ import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
+@SuppressWarnings("unused")
 public class add_card {
 
-	@SuppressWarnings("unused")
+	//############################################################################################### [-HELPERS-]
+	
+	/* enters input by id */
+	public void enterInputById(WebDriverWait webDriverWait, String inputLoc, String inputStr, String outputMsg) {
+		WebElement thisElem = webDriverWait.until(
+		        ExpectedConditions.visibilityOfElementLocated(By.id(inputLoc)));
+		thisElem.sendKeys(inputStr);
+		System.out.println("status: "+ outputMsg);	
+	}
+	
+	/* clicks elem by id */
+	public void clickByID(WebDriverWait webDriverWait, String clickLoc, String outputMsg) {
+		// -- enter input [email]
+		WebElement thisElem = webDriverWait.until(
+		        ExpectedConditions.visibilityOfElementLocated(By.id(clickLoc)));
+		thisElem.click();
+		System.out.println("status: "+ outputMsg);	
+	}
+	
+	/* clicks elem by classname */
+	public void clickByClassName(WebDriverWait webDriverWait, String clickLoc, String outputMsg) {
+		// -- enter input [email]
+		WebElement thisElem = webDriverWait.until(
+		        ExpectedConditions.visibilityOfElementLocated(By.className(clickLoc)));
+		thisElem.click();
+		System.out.println("status: "+ outputMsg);	
+	}
+	
+	/* clicks elem by name */
+	public void clickByName(WebDriverWait webDriverWait, String clickLoc, String outputMsg) {
+		// -- enter input [email]
+		WebElement thisElem = webDriverWait.until(
+		        ExpectedConditions.visibilityOfElementLocated(By.name(clickLoc)));
+		thisElem.click();
+		System.out.println("status: "+ outputMsg);	
+	}
+
+	/* read text from element */
+	public void readTextById(WebDriverWait webDriverWait, String userNote, String readLoc) {
+		// -- enter input [email]
+		WebElement thisElem = webDriverWait.until(
+		        ExpectedConditions.visibilityOfElementLocated(By.id(readLoc)));
+		System.out.println("\t> user "+ userNote + thisElem.getText());	
+	}
+	
+
+	
+	/* prints start time */
+	public void printStartTime() {
+		String startTime = this.getDateTime();
+		System.out.println("starting: " + startTime);
+		System.out.println(this.printDividingLine());
+	}
+	
+	/* prints end time */
+	public void printEndTime() {
+		System.out.println(this.printDividingLine());
+		String endTime = this.getDateTime();
+		System.out.println("ending: " + endTime);
+	}
+	
+	//############################################################################################### [-TEST-]
+	
 	@Test
 	public void test() throws Exception{
-
-		//--------------------------------------------------------------------------------------DATE
 		
-		// Print datetime for reference.
-		System.out.println("\n" + new String(new char[100]).replace("\0", "-")+ "\n");
-		System.out.println("datetime ref: " + LocalDateTime.now() + "\n");
-		System.out.println("\n" + new String(new char[100]).replace("\0", "-")+ "\n");
+		//------------------------------------------------------------------------------------------- [-SETUP-]
 		
-		//--------------------------------------------------------------------------------------SETUP
-		
-		// Load map containing locators and input values
+		/* map with locators, + input values + output mssg */
 		PropertiesReader properties = PropertiesReader.getInstance();
 		
-		// Files + Desired Capabilities
+		/* file */
 		File appDir = new File("src");
 		File app = new File(appDir, "app-2.21.10-66.apk");
+		
+		/* desired capabilities */
 		DesiredCapabilities cap = new DesiredCapabilities();
 		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
 		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
 		cap.setCapability(MobileCapabilityType.NEW_COMMAND_TIMEOUT, "50");
 		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 		
-		//--------------------------------------------------------------------------------------VARS
+		/* android driver */
 		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
-		System.out.println("\t...status: "+properties.get("appLaunchedMssg"));
-		WebDriverWait wait = new WebDriverWait(driver, 10);
+		
+		/* vars */
+		WebDriverWait wait = new WebDriverWait(driver, 20);
 		boolean cardOnFile = false;
 		
 		//--------------------------------------------------------------------------------------TEST
 		
-		// -- click navbar element
-		try {
-			WebElement navBarElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("navBarClass"))));
-			navBarElem.click();
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
+		/* print start time */
+		this.printStartTime();
+		
+		/* nav to Manage Cards */
+		this.clickByClassName(wait, properties.get("navBarClass"), properties.get("navBarClickedMssg"));
+		this.clickByName(wait, properties.get("navAccountName"), properties.get("navCardsClickedMssg"));
+		
+		/* signup or login */
+		this.clickByID(wait, properties.get("linkSigninID"), properties.get("navSigninClickedMssg"));
+		
+		/* proceed login */
+		this.enterInputById(wait,properties.get("inputEmailID"), properties.get("emailStr"), properties.get("enteredEmailMssg"));
+		this.enterInputById(wait, properties.get("inputPassID"), properties.get("passStr"), properties.get("enteredPassMssg"));
+		this.clickByID(wait, properties.get("btnSigninID"), properties.get("btnSignInClickedMssg"));
+		
+		/* print login details for reference */
+		this.readTextById(wait, "name", properties.get("accountNameDisplayID"));
+		this.readTextById(wait, "email", properties.get("accountEmailDisplayID"));
+		this.readTextById(wait, "phone", properties.get("accountPhoneDisplayID"));
+
+		/* nav back to Manage Cards */
+		this.clickByClassName(wait, properties.get("navBarClass"), properties.get("navBarClickedMssg"));
+		this.clickByName(wait, properties.get("navCardsName"), properties.get("navCardsClickedMssg"));
+		
+		/* if card on file, extra pre-step (click 'Add Payment Card') */
+		if (!driver.findElements(By.name(properties.get("addPayCardName"))).isEmpty()) {
+			driver.findElementByName(properties.get("addPayCardName")).click();
+			System.out.println(properties.get("statusOnAddCardScreenMssg"));
 		}
-		System.out.println("\t...status: "+properties.get("navBarClickedMssg"));
 		
-		// -- click 'Manage Cards' from nav bar
-		try {
-			WebElement navCardsElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.name(properties.get("navCardsName"))));
-			navCardsElem.click();
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
+		/* enter card details */
+		this.enterInputById(wait, properties.get("inputCCNumID"), properties.get("ccNumStr"), properties.get("enteredCCNumMssg"));
+		this.enterInputById(wait, properties.get("inputCCExpID"), properties.get("ccExpStr"), properties.get("enteredExpDateMssg"));
+		this.enterInputById(wait, properties.get("inputCVVID"), properties.get("ccCVVStr"), properties.get("enteredCCVMssg"));
+		this.clickByID(wait, properties.get("submitNextID"), properties.get("btnAddPayCardNextClickedMssg"));
+		
+		/* if addr on file, extra step to add 'New' */
+		if (!driver.findElements(By.name(properties.get("addNewBillAddrID"))).isEmpty()) {
+			driver.findElementByName(properties.get("addNewBillAddrID")).click();
+			System.out.println(properties.get("statusOnAddAddrScreenMssg"));
 		}
-		System.out.println("\t...status: "+properties.get("navCardsClickedMssg"));
-		
-		// -- click 'Sign In'
-		try {
-			WebElement linkSigninElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("linkSigninID"))));
-			linkSigninElem.click();
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		System.out.println("\t...status: "+properties.get("navSigninClickedMssg"));
-		
-		// -- enter input [email]
-		try {
-			WebElement inputEmailElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("inputEmailID"))));
-			inputEmailElem.sendKeys(properties.get("emailStr"));
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		System.out.println("\t...status: "+properties.get("enteredEmailMssg"));
-		
-		// -- enter input [password]
-		try {
-			WebElement inputPassElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("inputPassID"))));
-			inputPassElem.sendKeys(properties.get("passStr"));
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		System.out.println("\t...status: "+properties.get("enteredPassMssg"));
-		
-		// -- click 'Sign In' button
-		try {
-			WebElement submitLoginElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("submitLoginID"))));
-			submitLoginElem.click();
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		System.out.println("\t...status: "+properties.get("btnSignInClickedMssg"));
-		
-		// -- print account details for reference
-		try {
-			WebElement logoutLinkElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.id(properties.get("logoutLinkID"))));
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		String accountNameDisplayIDText = driver.findElementById(properties.get("accountNameDisplayID")).getText();
-		String accountEmailDisplayIDText = driver.findElementById(properties.get("accountEmailDisplayID")).getText();
-		String accountPhoneDisplayIDText = driver.findElementById(properties.get("accountPhoneDisplayID")).getText();
-		System.out.println("\t\t> account name: "+accountNameDisplayIDText);
-		System.out.println("\t\t> account email: "+accountEmailDisplayIDText);
-		System.out.println("\t\t> account phone: "+accountPhoneDisplayIDText);
-		
-		// -- click navbar element
-		try {
-			WebElement navBarElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("navBarClass"))));
-			navBarElem.click();
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		System.out.println("\t...status: "+properties.get("navBarClickedMssg"));
-		
-		// -- click 'Manage Cards' from nav bar
-		try {
-			WebElement navCardsElem = wait.until(
-			        ExpectedConditions.visibilityOfElementLocated(By.name(properties.get("navCardsName"))));
-			navCardsElem.click();
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		}
-		System.out.println("\t...status: "+properties.get("navCardsClickedMssg"));
-	
-		// -- check if account has at least 1 card on file
-		try {
-			if (!driver.findElements(By.id(properties.get("submitNextID"))).isEmpty()) {
-				cardOnFile = false;
-			} else if (!driver.findElements(By.name(properties.get("addPayCardName"))).isEmpty()) {
-				cardOnFile = true;
-			} 
-		} catch (Exception e) {
-			System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-			System.out.println("\t...exiting program.");
-			System.exit(0);
-		} 
-		System.out.println("\t...status: card on file="+cardOnFile);
-		
-//		// -- add new card (using if/else if for 2 possible flows)
-//		if (cardOnFile) {
-//			// --/-- click button to 'Add Payment Card'
-//			try {
-//				WebElement addPayCardElem = wait.until(
-//				        ExpectedConditions.visibilityOfElementLocated(By.className(properties.get("addPayCardName"))));
-//				addPayCardElem.click();
-//			} catch (NoSuchElementException e) {
-//				System.out.println("\n\nERROR: " + e.getMessage().substring(0, e.getMessage().indexOf('.')+1));
-//				System.out.println("\t...exiting program.");
-//				System.exit(0);
-//			}
-//			System.out.println("\t...status: "+properties.get("btnAddPayCardClickedMssg"));
-//		}
 		
 		
-		System.out.println("DONE for now.");
-		driver.quit();
+		/* print end time */
+		this.printEndTime();
 	}
-}
 
-/*
- Not working, seriously need to incorporate helper methods and WAITS!
- 
- public WebElement getWhenVisible(By locator, int timeout) {
-    WebElement element = null;
-    WebDriverWait wait = new WebDriverWait(driver, timeout);
-    element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-    return element;
+	//############################################################################################### [-HELPERS 2-]
+	
+	/* returns datetime for reference */
+	private String getDateTime() {
+	    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    Date date = new Date();
+	    return dateFormat.format(date);
+	}
+	
+	/* returns dividing line */
+	private String printDividingLine() {
+		String dividingLine = new String(new char[100]).replace("\0", "-");
+		return dividingLine;
+	}
+	
 }
-
-public void clickWhenReady(By locator, int timeout) {
-    WebDriverWait wait = new WebDriverWait(driver, timeout);
-    WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-    element.click();
-}
-
-http://stackoverflow.com/questions/12041013/selenium-webdriver-fluent-wait-works-as-expected-but-implicit-wait-does-not
- */
