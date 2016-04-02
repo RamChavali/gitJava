@@ -1,40 +1,34 @@
 package testcases;
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 import objectsrepo.OnboardingPage;
-import objectsrepo.StoresPage;
+import objectsrepo.PropertiesReader;
 
-@SuppressWarnings("unused")
 public class skipOnboarding {
 
+	PropertiesReader properties = PropertiesReader.getInstance();
 	File appDir = new File("src");
 	File app = new File(appDir, "app-2.21.10-66.apk");
 	DesiredCapabilities cap = new DesiredCapabilities();
-	private WebDriver driver;
-
-	@Test
-	public void skipOnboarding() throws Exception
-	{
-		// setup
-		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
-		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
-		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
-		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
-		WebDriverWait wait = new WebDriverWait(driver, 20);
 	
-		// page
-		OnboardingPage onboardPage = new OnboardingPage(driver);
-		StoresPage storesPage = new StoresPage(driver);
+	@Test
+	public skipOnboarding() throws Exception
+		{
+			// SETUP
+			cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
+			cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
+			cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+			AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
 		
-		// page actions
-		onboardPage.gotItBtn().click();
-	}
+			// PAGE(S)
+			OnboardingPage onboardPage = new OnboardingPage(driver);
+			
+			// TEST - [User is able to bypass onboarding by clicking "Got It" button.]
+			onboardPage.clickGotItBtnAction();
+		}
 }
