@@ -176,4 +176,12 @@ public class StoresPage extends BasePage
 				clickById(wait, properties.get("addCartFromStoreId"));
 			}
 		
+		// add cart from Product Detail Page
+		public void addCartFromProductDetailPage() 
+			{
+				scrollToElement(properties.get("addCartHintDollar"));
+				clickById(wait, properties.get("storesFrameImageId"));
+				clickById(wait, properties.get("addCartFromProductDetailId"));
+			}
+		
 	}

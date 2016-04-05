@@ -4,7 +4,6 @@
 
 /* addToCart tests
  * ----------------------------------
- * addToCart_fromStorePage
  * addToCart_fromProductDetailPage
  * addToCart_fromSearchStoreLevel
  * addToCart_fromSearchStoreCategoryLevel
