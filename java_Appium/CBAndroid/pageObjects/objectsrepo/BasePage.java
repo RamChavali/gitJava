@@ -15,6 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidKeyCode;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 
@@ -40,7 +41,7 @@ public class BasePage {
 				WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(inputLoc)));
 				thisElem.sendKeys(inputStr);
 				String outputMssg = "entered " + inputStr + " into " + inputLoc;
-				System.out.println("status: "+ outputMssg);	
+				System.out.println("info: "+ outputMssg);	
 			}
 		
 		// click element [ID]
@@ -49,7 +50,7 @@ public class BasePage {
 				WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(clickLoc)));
 				thisElem.click();
 				String outputMssg = "clicked by id, " + clickLoc;
-				System.out.println("status: "+ outputMssg);	
+				System.out.println("info: "+ outputMssg);	
 			}
 		
 		// click element [CLASSNAME]
@@ -58,7 +59,7 @@ public class BasePage {
 				WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.className(clickLoc)));
 				thisElem.click();
 				String outputMssg = "clicked by class name, " + clickLoc;
-				System.out.println("status: "+ outputMssg);	
+				System.out.println("info: "+ outputMssg);	
 			}
 		
 		// click element [NAME]
@@ -67,7 +68,7 @@ public class BasePage {
 				WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.name(clickLoc)));
 				thisElem.click();
 				String outputMssg = "clicked by name, " + clickLoc;
-				System.out.println("status: "+ outputMssg);	
+				System.out.println("info: "+ outputMssg);	
 			}
 		
 
@@ -77,7 +78,7 @@ public class BasePage {
 				WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(readLoc)));
 				String readText = thisElem.getText();
 				String outputMssg = "read " + readText + " from id, " + readLoc;
-				System.out.println("status: "+ outputMssg);
+				System.out.println("info: "+ outputMssg);
 			}
 		
 		// check if element exists [ID]
@@ -96,10 +97,32 @@ public class BasePage {
 					return false;
 				}
 				if (thisElem != null) {
+					String outputMssg = "verified element visible on page: " + elemLoc;
+					System.out.println("info: " + outputMssg);
 					return true;
 				} else {
 					return false;
 				}
 			}
+		// wait for element to be visible
+		public WebElement getElemById(WebDriverWait webDriverWait, String elemLoc)
+			{
+				WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elemLoc)));
+				return thisElem;
+			}
+		public WebElement getElemByName(WebDriverWait webDriverWait, String elemLoc)
+		{
+			WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id(elemLoc)));
+			return thisElem;
+		}
+		// TODO - key press and print status
+//		public void simulateEnterClick() 
+//			{
+//				
+//			}
+		
+
+		
+		
 		
 }
