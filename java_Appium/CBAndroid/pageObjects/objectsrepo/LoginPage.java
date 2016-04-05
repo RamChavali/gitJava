@@ -18,9 +18,24 @@ public class LoginPage extends BasePage
 				clickByName(wait, properties.get("navMyAccountName"));
 				clickById(wait, properties.get("preloginAcctSigninLinkId"));
 			}
+		public void navToSigninScreenAfterLoggingOut()
+			{
+				clickById(wait, properties.get("preloginAcctSigninLinkId"));
+			}
+		
+		// login
 		public void signinUsingValidCredentials() 
 			{			
 				enterInputById(wait, properties.get("preloginAcctEmailFieldId"), properties.get("emailStr"));
+				enterInputById(wait, properties.get("preloginAcctPassFieldId"), properties.get("passStr"));
+				clickById(wait, properties.get("preloginAcctSigninBtnId"));
+				readTextById(wait, properties.get("postLoginAcctNameFieldId"));
+				readTextById(wait, properties.get("postLoginAcctEmailFieldId"));
+				readTextById(wait, properties.get("postLoginAcctPhoneFieldId"));
+			}
+		public void signinUsingValidCredentials2() 
+			{
+				enterInputById(wait, properties.get("preloginAcctEmailFieldId"), properties.get("emailStr2"));
 				enterInputById(wait, properties.get("preloginAcctPassFieldId"), properties.get("passStr"));
 				clickById(wait, properties.get("preloginAcctSigninBtnId"));
 				readTextById(wait, properties.get("postLoginAcctNameFieldId"));
@@ -64,6 +79,12 @@ public class LoginPage extends BasePage
 				clickById(wait, properties.get("preloginAcctSigninBtnId"));
 			}
 		
+		// logout
+		
+		public void logout() 
+			{
+				clickById(wait, properties.get("postLoginAcctSignoutId"));
+			}
 		
 		
 		

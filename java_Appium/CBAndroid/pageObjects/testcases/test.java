@@ -40,16 +40,10 @@
 // 			-- api-related --
 // ###########################################
 
-/* login tests
- * validLogin_afterLogoutSameAcct
- * validLogin_afterLogoutDiffAcct
- */
-
 /* loyaltyCard tests
  * loyaltyCard_addNew
  * loyaltyCard_remove
  */
-
 
 /* storeCategories tests
  * storeCategories_allOption

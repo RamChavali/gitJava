@@ -1,6 +1,9 @@
 package objectsrepo;
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class StoresPage extends BasePage 
 	{
@@ -154,7 +157,7 @@ public class StoresPage extends BasePage
 			driver.navigate().back();
 		}
 		
-		// Navigation Check Methods Store Frame section
+/*		// Navigation Check Methods Store Frame section
 //		public void navToAndFromStoreLink() {
 //			clickById(wait, properties.get("storesNearbyLinkId"));
 //			driver.navigate().back();
@@ -163,6 +166,14 @@ public class StoresPage extends BasePage
 //			clickById(wait, properties.get("storesMapLinkId"));
 //			driver.navigate().back(); 
 //		}
+*/		
+		
+		// TODO - navigates to first store frame
+		public void clickOnFirstRetailerImage() 
+			{
+				//clickById_atFirstIndex(wait, properties.get("retailerImageId"));	
+				clickById(wait, properties.get("retailerImageId"));
+			}
 		
 		
 		

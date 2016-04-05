@@ -4,6 +4,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -53,6 +54,15 @@ public class BasePage {
 				System.out.println("info: "+ outputMssg);	
 			}
 		
+		// click element at 1st index of ID group 
+		public void clickById_atFirstIndex(WebDriverWait webDriverWait, String clickLoc)
+			{
+				List<WebElement> elemsList = driver.findElements(By.className(clickLoc));
+				elemsList.get(0).click();
+				String outputMssg = "clicked by class name @1st index, " + clickLoc;
+				System.out.println("info: "+ outputMssg);
+			}
+		
 		// click element [CLASSNAME]
 		public void clickByClassName(WebDriverWait webDriverWait, String clickLoc) 
 			{
@@ -60,7 +70,7 @@ public class BasePage {
 				thisElem.click();
 				String outputMssg = "clicked by class name, " + clickLoc;
 				System.out.println("info: "+ outputMssg);	
-			}
+			}		
 		
 		// click element [NAME]
 		public void clickByName(WebDriverWait webDriverWait, String clickLoc) 
@@ -69,8 +79,7 @@ public class BasePage {
 				thisElem.click();
 				String outputMssg = "clicked by name, " + clickLoc;
 				System.out.println("info: "+ outputMssg);	
-			}
-		
+			}		
 
 		// get text from element [ID]
 		public void readTextById(WebDriverWait webDriverWait, String readLoc) 
