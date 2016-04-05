@@ -131,7 +131,23 @@ public class BasePage {
 //			}
 		
 
-		
-		
-		
+		// Scroll TO
+		// https://github.com/appium/java-client/issues/260
+		public void scrollToExactElement(String exactStr) {
+		    ((AndroidDriver) driver).findElementByAndroidUIAutomator(
+		            "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().text(\""
+		                    + exactStr + "\").instance(0))");
+		    String outputMssg = "scrolled to exact text, " + exactStr;
+			System.out.println("info: "+ outputMssg);
+		}
+
+		 public void scrollToElement(String partialStr) {
+		    ((AndroidDriver) driver).findElementByAndroidUIAutomator(
+		            "new UiScrollable(new UiSelector().scrollable(true).instance(0)).scrollIntoView(new UiSelector().textContains(\""
+		                    + partialStr + "\").instance(0))");
+		    String outputMssg = "scrolled to partial text, " + partialStr;
+		    System.out.println("info: "+ outputMssg);
+		}
+		 	
+		 	
 }

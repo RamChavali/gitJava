@@ -13,7 +13,7 @@ import objectsrepo.PropertiesReader;
 import objectsrepo.StoresPage;
 import utilities.AppiumServer;
 
-public class storeCategories_allOption {
+public class addToCart_fromStorePage {
 	PropertiesReader properties = PropertiesReader.getInstance();
 	File appDir = new File("src");
 	File app = new File(appDir, "app-2.21.10-66.apk");
@@ -32,14 +32,14 @@ public class storeCategories_allOption {
 	}
 	
 	@Test
-	public storeCategories_allOption() throws Exception
+	public addToCart_fromStorePage() throws Exception
 	{
 		this.setUp();
 		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
 		StoresPage storesPage = new StoresPage(driver);
 		storesPage.navToStoresPage();
 		storesPage.clickOnFirstRetailerImage();
-		storesPage.checkForCategory_All();
+		storesPage.addCartFromStorePage();
 		
 		this.tearDown();
 		// TODO - assert statements!

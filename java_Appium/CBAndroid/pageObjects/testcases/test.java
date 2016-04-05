@@ -45,10 +45,6 @@
  * loyaltyCard_remove
  */
 
-/* storeCategories tests
- * storeCategories_allOption
- */
-
 
 
 

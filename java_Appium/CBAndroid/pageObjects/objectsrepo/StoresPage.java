@@ -1,9 +1,6 @@
 package objectsrepo;
-import java.util.List;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class StoresPage extends BasePage 
 	{
@@ -157,25 +154,26 @@ public class StoresPage extends BasePage
 			driver.navigate().back();
 		}
 		
-/*		// Navigation Check Methods Store Frame section
-//		public void navToAndFromStoreLink() {
-//			clickById(wait, properties.get("storesNearbyLinkId"));
-//			driver.navigate().back();
-//		}
-//		public void navToAndFromMoreLocationsLink() {
-//			clickById(wait, properties.get("storesMapLinkId"));
-//			driver.navigate().back(); 
-//		}
-*/		
-		
-		// TODO - navigates to first store frame
+		// navigates to first store frame
 		public void clickOnFirstRetailerImage() 
 			{
+				//TODO - why this doesn't work:
 				//clickById_atFirstIndex(wait, properties.get("retailerImageId"));	
 				clickById(wait, properties.get("retailerImageId"));
 			}
 		
+		// check that "All Cateogries" catoegory available
+		public void checkForCategory_All()
+			{
+				scrollToExactElement(properties.get("categoryAll"));
+				clickByName(wait, properties.get("categoryAll"));
+			}
 		
+		// add cart from Store Page
+		public void addCartFromStorePage()
+			{
+				scrollToElement(properties.get("addCartHintDollar"));
+				clickById(wait, properties.get("addCartFromStoreId"));
+			}
 		
-		// TODO - add todo items here
 	}
