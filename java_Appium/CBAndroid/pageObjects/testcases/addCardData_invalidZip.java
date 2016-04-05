@@ -1,70 +1,55 @@
 package testcases;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.net.URL;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
+import objectsrepo.PropertiesReader;
 import objectsrepo.LoginPage;
 import objectsrepo.ManageCardsPage;
-import objectsrepo.PropertiesReader;
+import utilities.AppiumServer;
 
 public class addCardData_invalidZip {
 	PropertiesReader properties = PropertiesReader.getInstance();
 	File appDir = new File("src");
 	File app = new File(appDir, "app-2.21.10-66.apk");
+	AppiumServer server=new AppiumServer(); 
 	DesiredCapabilities cap = new DesiredCapabilities();
 	
-	@Test
-	public addCardData_invalidZip() throws Exception
-	{
-		// setup
+	@BeforeClass
+	public void setUp() throws MalformedURLException {
+		server.stopServer(); // add if statement?
+		server.startServer(); 
 		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
 		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
 		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
 		cap.setCapability("unicodeKeyboard", true);
 		cap.setCapability("resetKeyboard", true);
-		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
+	}
 	
-		// pages
+	@Test
+	public addCardData_invalidZip() throws Exception
+	{
+		this.setUp();
+		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
 		LoginPage loginPage = new LoginPage(driver);
 		ManageCardsPage manageCardsPage = new ManageCardsPage(driver);
-		
-		// TEST
 		loginPage.navToSigninScreen();
 		loginPage.signinUsingValidCredentials();
 		manageCardsPage.navToManageCardsScreen();
 		manageCardsPage.removePaymentCardsAll();
 		manageCardsPage.addPayCard_invalidZip();
-		
+		this.tearDown();
 		// TODO - assert error message invoked, "Please try again."
 		// TODO - autofixes, is this expected?
 	}
+	@AfterClass
+	public void tearDown() {
+		server.stopServer();
+	}
 }
-
-/*
-[{
-"first_name": "Jane",
-"last_name": "Prod",
-"type": "VISA",
-"last_4": "7433",
-"exp_month": 1,
-"exp_year": 2018,
-"address": {
-	"state": "CA",
-	"line_2": "",
-	"zipcode": "94306",
-	"country": "US",
-	"line_1": "260 Sheridan Ave Ste 300",
-	"city": "Palo Alto",
-	"barcode": null
-},
-"pin_required": false,
-"addr_validated": true,
-"users_id": 318591,
-"card_icon_url": "http://cdn-s.shopcurbside.com.s3.amazonaws.com/creditcardicons/visa",
-"id": 162003,
-"created_at": "2016-04-02T05:38:46.312Z"
-}]
-*/

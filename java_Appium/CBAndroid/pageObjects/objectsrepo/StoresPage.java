@@ -1,4 +1,5 @@
 package objectsrepo;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class StoresPage extends BasePage 
@@ -21,8 +22,9 @@ public class StoresPage extends BasePage
 			{
 				clickById(wait, properties.get("storesSearchIconId"));
 				enterInputById(wait, properties.get("storesSearchIconId"), properties.get("envAccessStr")+"\n");
-				getElemByName(wait, "My Location"); // unexpected screen, just navigating back as hack
-				driver.navigate().back();
+				if (!driver.findElements(By.className(properties.get("envAccessUnexpectedClassName"))).isEmpty()) {
+					driver.navigate().back();
+				}
 			}
 		public void invokeAPIHost()
 			{
@@ -159,7 +161,7 @@ public class StoresPage extends BasePage
 //		}
 //		public void navToAndFromMoreLocationsLink() {
 //			clickById(wait, properties.get("storesMapLinkId"));
-//			driver.navigate().back();
+//			driver.navigate().back(); 
 //		}
 		
 		
