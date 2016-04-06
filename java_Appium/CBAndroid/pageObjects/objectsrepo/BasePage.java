@@ -148,6 +148,14 @@ public class BasePage {
 		    String outputMssg = "scrolled to partial text, " + partialStr;
 		    System.out.println("info: "+ outputMssg);
 		}
+		 
+		 public void scrollToElementUsingClassName(String elemLoc) {
+			    ((AndroidDriver) driver).findElementByAndroidUIAutomator(
+			            "new UiScrollable(new UiSelector().scrollable(true).instance(1)).scrollIntoView(new UiSelector().className(\""
+			                    + elemLoc + "\").instance(1))");
+			    String outputMssg = "scrolled to exact text, " + elemLoc;
+				System.out.println("info: "+ outputMssg);
+			}
 		 	
 		 	
 }

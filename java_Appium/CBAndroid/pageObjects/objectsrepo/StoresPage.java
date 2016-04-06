@@ -162,6 +162,15 @@ public class StoresPage extends BasePage
 				clickById(wait, properties.get("retailerImageId"));
 			}
 		
+		// navigates to TARGET
+				public void clickOnRetailerTarget() 
+			{
+				//TODO - why this doesn't work:
+				//clickById_atFirstIndex(wait, properties.get("retailerImageId"));	
+				scrollToElement(properties.get("addCartFromProductDetailStoreForTestingName"));
+				clickByName(wait, properties.get("addCartFromProductDetailStoreForTestingName"));
+			}
+		
 		// check that "All Cateogries" catoegory available
 		public void checkForCategory_All()
 			{
@@ -176,11 +185,19 @@ public class StoresPage extends BasePage
 				clickById(wait, properties.get("addCartFromStoreId"));
 			}
 		
-		// add cart from Product Detail Page
-		public void addCartFromProductDetailPage() 
+		// add cart from Product Detail Page 
+		// TODO - research this issue
+		// https://github.com/havefuncoding/gitJava/issues/14
+		public void addCartFromProductDetailPage() throws InterruptedException 
 			{
+				Thread.sleep(2000);
 				scrollToElement(properties.get("addCartHintDollar"));
-				clickById(wait, properties.get("storesFrameImageId"));
+//				scrollToExactElement(properties.get("categoryAll"));
+				Thread.sleep(2000);
+				clickByClassName(wait, properties.get("retailerPageProductFrameClassName"));
+				Thread.sleep(2000);
+//				driver.navigate().back();
+//				clickByClassName(wait, properties.get("retailerPageProductFrameClassName"));
 				clickById(wait, properties.get("addCartFromProductDetailId"));
 			}
 		
