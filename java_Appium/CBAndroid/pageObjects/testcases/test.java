@@ -4,26 +4,16 @@
 
 /* addToCart tests
  * ----------------------------------
- * addToCart_fromProductDetailPage
- * addToCart_fromSearchStoreLevel
- * addToCart_fromSearchStoreCategoryLevel
- * addToCart_fromSearchMallLevel
- * addToCart_fromSearchMallCategoryLevel
+ * addToCart_fromProductDetailPage // working but need to research unexpected screen issue
+ * addToCart_fromSearchMallLevel // need to loop through, scroll to next until param met
+ * addToCart_fromSearchMallCategoryLevel // same
  */
 
 /* changeQty tests
  * -------------------------------
- * changeQty_fromStorePage
- * changeQty_fromProductDetailPage
  * changeQty_fromCartPage
  */
 
-/* removeQty tests
- * --------------------------------
- * removeQty_fromStorePage
- * removeQty_fromProductDetailPage
- * removeQty_fromCartPage
- */
 
 /* orderDetailsUI tests
  * -------------------------------
@@ -33,6 +23,13 @@
  * orderDetailsUI_curbsideReady
  * orderDetailsUI_pickupReady
  * orderDetailsUI_needsReview_*
+ */
+
+
+/* creating new / keeping old cart
+ * ---------------------------------
+ * create new cart
+ * keep old cart
  */
 
 // ###########################################

@@ -6,17 +6,17 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.annotations.Test;
-import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.MobileCapabilityType;
 import io.appium.java_client.remote.MobilePlatform;
 import objectsrepo.PropertiesReader;
-import objectsrepo.StoresPage;
+import objectsrepo.testPage_iOS;
 import utilities.AppiumServer;
 
-public class addToCart_fromStorePage {
+public class test_iOS {
 	PropertiesReader properties = PropertiesReader.getInstance();
 	File appDir = new File("src");
-	File app = new File(appDir, "app-2.21.10-66.apk");
+	File app = new File(appDir, "Curbside_simulator.app");
 	AppiumServer server=new AppiumServer(); 
 	DesiredCapabilities cap = new DesiredCapabilities();
 	
@@ -24,25 +24,28 @@ public class addToCart_fromStorePage {
 	public void setUp() throws MalformedURLException {
 		server.stopServer(); // add if statement?
 		server.startServer(); 
-		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.ANDROID);
-		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "Android Device");
-		cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+		cap.setCapability(MobileCapabilityType.PLATFORM_NAME, MobilePlatform.IOS);
+//		cap.setCapability(MobileCapabilityType.DEVICE_NAME, "CS iPhone 6");
+		cap.setCapability(MobileCapabilityType.DEVICE_NAME, properties.get("ios_deviceName"));
+		//cap.setCapability(MobileCapabilityType.APP, app.getAbsolutePath());
+		cap.setCapability("udid", properties.get("ios_udid")); // using device-preloaded
+		cap.setCapability("bundleId", properties.get("ios_bundleId"));
 		cap.setCapability("unicodeKeyboard", true);
 		cap.setCapability("resetKeyboard", true);
 	}
-	
 	@Test
-	public addToCart_fromStorePage() throws Exception
+	public test_iOS() throws Exception
 	{
 		this.setUp();
-		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
-		StoresPage storesPage = new StoresPage(driver);
-		storesPage.navToStoresPage();
-		storesPage.clickOnFirstRetailerImage();
-		storesPage.addCartWithPlusIcon();
+		//-------------->> setUp
+		IOSDriver driver = new IOSDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
+		testPage_iOS tp = new testPage_iOS(driver);
+		tp.navToMyAccountScreen();
+		//tp.getCurrentPageSource();
 		
+		
+		//-------------->> tearDown
 		this.tearDown();
-		// TODO - assert statements!
 	}
 	
 	@AfterClass

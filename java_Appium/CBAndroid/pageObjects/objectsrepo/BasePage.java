@@ -44,6 +44,14 @@ public class BasePage {
 				String outputMssg = "entered " + inputStr + " into " + inputLoc;
 				System.out.println("info: "+ outputMssg);	
 			}
+		// send keys to element [ID]
+			public void enterInputByName(WebDriverWait webDriverWait, String inputLoc, String inputStr) 
+				{
+					WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.name(inputLoc)));
+					thisElem.sendKeys(inputStr);
+					String outputMssg = "entered " + inputStr + " into " + inputLoc;
+					System.out.println("info: "+ outputMssg);	
+				}
 		
 		// click element [ID]
 		public static void clickById(WebDriverWait webDriverWait, String clickLoc) 
@@ -80,7 +88,18 @@ public class BasePage {
 				String outputMssg = "clicked by name, " + clickLoc;
 				System.out.println("info: "+ outputMssg);	
 			}		
-
+		
+		//---------------------------------------------------------------------->>> TEST
+		// click element [VALUE]
+			public void clickByValue(WebDriverWait webDriverWait, String clickLocXpath) 
+				{
+					WebElement thisElem = webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(clickLocXpath)));
+					thisElem.click();
+					String outputMssg = "clicked by name, " + clickLocXpath;
+					System.out.println("info: "+ outputMssg);	
+				}	
+		//---------------------------------------------------------------------->>> TEST
+			
 		// get text from element [ID]
 		public void readTextById(WebDriverWait webDriverWait, String readLoc) 
 			{
@@ -148,10 +167,16 @@ public class BasePage {
 		    String outputMssg = "scrolled to partial text, " + partialStr;
 		    System.out.println("info: "+ outputMssg);
 		}
-		 
 		 public void scrollToElementUsingClassName(String elemLoc) {
 			    ((AndroidDriver) driver).findElementByAndroidUIAutomator(
 			            "new UiScrollable(new UiSelector().scrollable(true).instance(1)).scrollIntoView(new UiSelector().className(\""
+			                    + elemLoc + "\").instance(1))");
+			    String outputMssg = "scrolled to exact text, " + elemLoc;
+				System.out.println("info: "+ outputMssg);
+			}
+		 public void scrollToElementUsingId(String elemLoc) {
+			    ((AndroidDriver) driver).findElementByAndroidUIAutomator(
+			            "new UiScrollable(new UiSelector().scrollable(true).instance(1)).scrollIntoView(new UiSelector().id(\""
 			                    + elemLoc + "\").instance(1))");
 			    String outputMssg = "scrolled to exact text, " + elemLoc;
 				System.out.println("info: "+ outputMssg);

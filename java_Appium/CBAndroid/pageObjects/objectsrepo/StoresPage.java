@@ -11,13 +11,15 @@ public class StoresPage extends BasePage
 				super(driver);
 			}
 		
-		// METHODS
+		// ############################################################################# [1] NAVIGATION
 		public void navToStoresPage() 
 			{		
 				clickById(wait, properties.get("gotItID"));
 				clickByClassName(wait, properties.get("navBarClass"));
 				clickByName(wait, properties.get("navStoresName"));
 			}
+		
+		// ############################################################################# [2] ENVIRONMENT
 		public void accessDebugScreen() throws InterruptedException 
 			{
 				clickById(wait, properties.get("storesSearchIconId"));
@@ -36,9 +38,8 @@ public class StoresPage extends BasePage
 				enterInputById(wait, properties.get("apiHostEditFieldId"), properties.get("envQ1Str"));
 				clickByName(wait, properties.get("apiHostEditOKName"));
 			}
-				
 		
-		// UI Check Methods - Header section
+		// ############################################################################# [3] UI
 		public void checkForStoreHeaderSectionUI()
 			{
 				this.checkForHeaderSearchIconUI();
@@ -83,7 +84,7 @@ public class StoresPage extends BasePage
 			return elemUIVerified;
 		}
 		
-		// UI Check Methods - Store Frame
+		// ############################################################################# [4] UI - STORE FRAME
 		public void checkForStoreFrameSectionUI() {
 			this.checkForStoreFrameImageUI();
 			this.checkForStoreFrameNameUI();
@@ -135,7 +136,7 @@ public class StoresPage extends BasePage
 			return elemUIVerified;
 		}
 		
-		// Navigation Check Methods Header section
+		// ############################################################################# [5] HEADER SECTION
 		public void checkForNavigationToAndBack() {
 			this.navToAndBackFromNearbyLink();
 			this.navToAndBackFromMapLink();
@@ -174,12 +175,13 @@ public class StoresPage extends BasePage
 		// check that "All Cateogries" catoegory available
 		public void checkForCategory_All()
 			{
-				scrollToExactElement(properties.get("categoryAll"));
+				scrollToElementUsingId(properties.get("categoryAll"));
 				clickByName(wait, properties.get("categoryAll"));
 			}
 		
-		// add cart from Store Page
-		public void addCartFromStorePage()
+		
+		// ############################################################################# [6] ADD CART FLOWS
+		public void addCartWithPlusIcon()
 			{
 				scrollToElement(properties.get("addCartHintDollar"));
 				clickById(wait, properties.get("addCartFromStoreId"));
@@ -190,15 +192,65 @@ public class StoresPage extends BasePage
 		// https://github.com/havefuncoding/gitJava/issues/14
 		public void addCartFromProductDetailPage() throws InterruptedException 
 			{
-				Thread.sleep(2000);
 				scrollToElement(properties.get("addCartHintDollar"));
-//				scrollToExactElement(properties.get("categoryAll"));
-				Thread.sleep(2000);
 				clickByClassName(wait, properties.get("retailerPageProductFrameClassName"));
-				Thread.sleep(2000);
-//				driver.navigate().back();
-//				clickByClassName(wait, properties.get("retailerPageProductFrameClassName"));
 				clickById(wait, properties.get("addCartFromProductDetailId"));
 			}
+		
+		// search for water
+		public void searchForWater() 
+			{
+				clickById(wait, properties.get("searchBarId"));
+				enterInputById(wait, properties.get("searchBarId"), properties.get("addCartFromSearchStoreLevelValue")+"\n");
+			}
+		// reaching categories level
+		public void navToCateogryLevelTargetBeverages() 
+			{
+				clickByName(wait, properties.get("targetTestingStoreName"));
+				clickByName(wait, properties.get("targetTestingStoreParentCategoryName"));
+				clickByName(wait, properties.get("targetTestingStoreChildCategoryName"));
+				
+			}
+/*		
+ * TODO - need to loop through and scroll to next element until param met
+ * 	// add from search at mall level
+		public void navToMallStore() 
+			{
+				scrollToExactElement(properties.get("targetTestingMallName"));
+				clickByName(wait, properties.get("targetTestingMallName"));
+			}*/
+			
+		
+		// ############################################################################# [7] REMOVE FLOWS
+		public void removeWithPlusIcon() 
+			{
+				this.addCartWithPlusIcon();
+			}
+		public void removeFromProductDetailPage()
+			{
+				scrollToElement(properties.get("addCartHintDollar"));
+				clickByClassName(wait, properties.get("retailerPageProductFrameClassName"));
+				clickById(wait, properties.get("productDetailQtyDropdownId"));
+				clickById(wait, properties.get("productDetailQtyDropdownTrashIconId"));
+			}
+		public void removeFromCartPage() 
+			{
+				clickById(wait, properties.get("storesCartIconId"));
+				clickById(wait, properties.get("productDetailQtyDropdownId"));
+				clickById(wait, properties.get("productDetailQtyDropdownTrashIconId"));
+			}
+		
+		// ############################################################################# [8] CHANGE QTY FLOWS
+		public void changeQtyFromProductDetailPage()
+			{
+				clickById(wait, properties.get("storesCartIconId"));
+				clickById(wait, properties.get("productDetailQtyDropdownId"));
+				clickByName(wait, properties.get("diffQuantityValue"));
+			}
+		public void changeQtyFromCartPage()
+			{
+				//add
+			}
+		
 		
 	}

@@ -13,7 +13,7 @@ import objectsrepo.PropertiesReader;
 import objectsrepo.StoresPage;
 import utilities.AppiumServer;
 
-public class addToCart_fromStorePage {
+public class removeQty_fromCartPage {
 	PropertiesReader properties = PropertiesReader.getInstance();
 	File appDir = new File("src");
 	File app = new File(appDir, "app-2.21.10-66.apk");
@@ -32,7 +32,7 @@ public class addToCart_fromStorePage {
 	}
 	
 	@Test
-	public addToCart_fromStorePage() throws Exception
+	public removeQty_fromCartPage() throws Exception
 	{
 		this.setUp();
 		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
@@ -40,6 +40,8 @@ public class addToCart_fromStorePage {
 		storesPage.navToStoresPage();
 		storesPage.clickOnFirstRetailerImage();
 		storesPage.addCartWithPlusIcon();
+		//---------------------------------------->>> need to apply method "overload"
+		storesPage.removeFromCartPage();
 		
 		this.tearDown();
 		// TODO - assert statements!

@@ -13,7 +13,7 @@ import objectsrepo.PropertiesReader;
 import objectsrepo.StoresPage;
 import utilities.AppiumServer;
 
-public class addToCart_fromStorePage {
+public class removeQty_fromProductDetailPage {
 	PropertiesReader properties = PropertiesReader.getInstance();
 	File appDir = new File("src");
 	File app = new File(appDir, "app-2.21.10-66.apk");
@@ -32,17 +32,18 @@ public class addToCart_fromStorePage {
 	}
 	
 	@Test
-	public addToCart_fromStorePage() throws Exception
+	public removeQty_fromProductDetailPage() throws Exception
 	{
 		this.setUp();
 		AndroidDriver driver = new AndroidDriver(new URL ("http://127.0.0.1:4723/wd/hub"), cap);
 		StoresPage storesPage = new StoresPage(driver);
 		storesPage.navToStoresPage();
-		storesPage.clickOnFirstRetailerImage();
-		storesPage.addCartWithPlusIcon();
-		
-		this.tearDown();
+		storesPage.clickOnRetailerTarget();
+		storesPage.addCartFromProductDetailPage();
+		//--------------------------------------------->> need to research overloading method
+		storesPage.removeFromProductDetailPage();
 		// TODO - assert statements!
+		this.tearDown();
 	}
 	
 	@AfterClass
