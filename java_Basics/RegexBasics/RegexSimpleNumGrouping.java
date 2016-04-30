@@ -5,16 +5,16 @@
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexSimpleNumGrouping {
+public class RegexMatches {
     public static void main(String args[]) {
 
         // String to be scanned to find the pattern.
         String line = "$1.96-$10.00 (151)";
 
-        //(\\d[.]\\d+)-->1.96
+        //(\\d[.]\\d+)-->1.96       //added + to handle 1+ digits
         //(\\d+[.]\\d+)-->10.00
         //(\\d+)-->151
-        String pattern = "^\\$(\\d[.]\\d+)[-][$](\\d+[.]\\d+)[\\s][(](\\d+)[)]";
+        String pattern = "^\\$(\\d+[.]\\d+)[-][$](\\d+[.]\\d+)[\\s][(](\\d+)[)]";
         System.out.println("\n-------------------------------------------");
         System.out.println("Original string: " + line);
         System.out.println("-------------------------------------------\n");
@@ -34,3 +34,30 @@ public class RegexSimpleNumGrouping {
         }
     }
 }
+
+
+/*
+
+TODO - add +
+^\$(\d[.]\d+)[-][$](\d+[.]\d+)[\s][(](\d+)[)]
+-----------------------------------------------
+
+^               :matches beginning of the line
+\$              :ESCAPES matching end of the line
+(\d[.]\d+)      :\d     :matches digits
+                :[.]    :matches any single character except newline
+                :\d     :matches digits
+                :+      :matches when preceding character occurs 1 or more times
+[-]             :matches literal dash character
+[$]             :matches literal dollar character
+(\d+[.]\d+)     :\d     :matches digits
+                :+      :matches when preceding character occurs 1 or more times
+                :[.]    :matches any single character except newline
+                :\d     :matches digits
+                :+      :matches when preceding character occurs 1 or more times
+[\s]            :matches whitespace
+[(]             :matches literal left parentheses character
+(\d+)           :matches when there are 1 or more digits
+[)]             :matches literal right parentheses character
+
+ */
