@@ -1,8 +1,7 @@
 package java_Yun;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,6 +15,13 @@ import java.util.Map;
  * count distinct chars in char array, http://stackoverflow.com/a/22597587
  * edit hashmap value using key, http://stackoverflow.com/a/4158002
  * count occurrence of each character in string, http://javaconceptoftheday.com/how-to-count-occurrences-of-each-character-in-string-in-java/
+ *
+ * Additional References:
+ * 1) Yun!
+ * 2) ascii table, http://www.asciitable.com/
+ * 3) count num each char in string, http://codereview.stackexchange.com/a/44190
+ * 4) convert lettersin string to number, http://stackoverflow.com/a/15027342
+ * 5) 
  */
 
 public class LeetcodeValidAnagram {
@@ -40,13 +46,45 @@ public class LeetcodeValidAnagram {
 		return isAnagram;
 	}
 	
+	// refactored using ASCII per Yun!
+	public static boolean isAnagramUsingAscii(String s, String t) {
+		int[] sCount = new int[256];
+		int[] tCount = new int[256];
+		
+		for (char sChar: s.toCharArray()) {
+			int sIntValToAdd = ((sChar-'a'+1) < 0)? ((sChar-'a'+1) * -1) : (sChar-'a'+1);
+			sCount[sIntValToAdd] = sIntValToAdd;
+		}
+		for (char tChar: t.toCharArray()) {
+			int tIntValToAdd = ((tChar-'a'+1) < 0)? ((tChar-'a'+1) * -1) : (tChar-'a'+1);
+			tCount[tIntValToAdd] = tIntValToAdd;
+		}
+		
+		boolean isAnagram = (Arrays.equals(sCount, tCount))? true : false;
+		
+		System.out.println(isAnagram + ":\t\"" + t + "\" is an anagram of \"" + s + "\"");
+		//System.out.println("sCount:\t" + Arrays.toString(sCount));
+		//System.out.println("tCount:\t" + Arrays.toString(tCount));
+
+		return false;
+	}
+	
 	public static void main(String[] args) {
 		// TEST - checking here before submitting Leetcode.
+		System.out.println("\nResult set #1:\n");
 		isAnagram("anagram", "nagaram");
 		isAnagram("rat", "car");
 		isAnagram("", "");
 		isAnagram("!", "!");
 		isAnagram("anagram!", "anagram");
+		
+		// TEST - after refactoring with Yun!
+		System.out.println("\nResult set #2:\n");
+		isAnagramUsingAscii("anagram", "nagaram");
+		isAnagramUsingAscii("rat", "car");
+		isAnagramUsingAscii("", "");
+		isAnagramUsingAscii("!", "!");
+		isAnagramUsingAscii("anagram!", "anagram");
 	}
 
 }
