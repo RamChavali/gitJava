@@ -5,9 +5,8 @@ package java_Yun;
  * 1) Yun!
  * 2) StringBuilder to String, http://stackoverflow.com/a/16155815
  * 3) reverse string using String Builder, http://www.tutorialspoint.com/java/lang/stringbuilder_reverse.htm
- * 
- * 
- *
+ * 4) reverse string usinf String Buffer, http://www.tutorialspoint.com/java/stringbuffer_reverse.htm
+ * Lesson learned -> LIBRARIES!
  */
 
 public class LeetcodeReverseString {
@@ -29,7 +28,6 @@ public class LeetcodeReverseString {
     	return reversedString;
     }
     
-    
     // refactored version using StringBuilder!
     public static String reverseStringUsingStringBuilder(String originalString) {
     	String reversedString = new StringBuilder(originalString).reverse().toString();
@@ -44,7 +42,6 @@ public class LeetcodeReverseString {
     	return reversedString;
     }
     
-    
 	public static void main(String[] args) { 
 		
 		// TEST
@@ -52,5 +49,4 @@ public class LeetcodeReverseString {
 		reverseStringUsingStringBuilder("hello2");
 		reverseStringUsingStringBuffer("hello3");
 	}
-	
 }
