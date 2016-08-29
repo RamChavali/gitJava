@@ -20,13 +20,17 @@ public class PrintArraySum {
 		for (int i=0; i<intArray.length; i++) {
 			if (intInput==intArray[i]) {
 				arrayContainsInput = true;
+				//Once you find the element there is no need to continue the for loop.
+				break;
 			} 
 		}
 		System.out.println("arrayContainsInput:\t" + arrayContainsInput);
 	}
 	
 	public static void main(String[] args) {
-		int[] hardcodedIntArray = { -1, (int) Math.pow(2, 2), 3, 44};
+		//Math.pow takes doubles as arguments..
+		//if you want to use the hard coded int array and assuming passed arguments are integers
+		int[] hardcodedIntArray = { -1, (int) Math.pow(2.0, 2.0), 3, 44};		
 		printArraySum(hardcodedIntArray);
 		arrayContainsInput(hardcodedIntArray);
 	}
