@@ -1,6 +1,7 @@
 public class PrintArraySumWithConstructor {
-	
+	//instance variable to check for integer
 	private int inputInteger2Check = 0;
+	//int array to traverse....
 	private int[] intArray = null;
 	
 	public PrintArraySumWithConstructor(int inputInteger2Check, int[] intArray){
