@@ -36,6 +36,7 @@ public class PrintArraySumArgs {
 		int index = 0;
 		for(String arg : args){
 			hardcodedIntArray[index] = Integer.parseInt(arg);
+			index++;
 		}
 		printArraySum(hardcodedIntArray);
 		arrayContainsInput(hardcodedIntArray);
