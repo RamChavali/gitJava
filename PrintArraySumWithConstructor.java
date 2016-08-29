@@ -4,6 +4,7 @@ public class PrintArraySumWithConstructor {
 	//int array to traverse....
 	private int[] intArray = null;
 	
+	//Public constructor...
 	public PrintArraySumWithConstructor(int inputInteger2Check, int[] intArray){
 		if(intArray == null || intArray.length == 0){
 			throw new IllegalArgumentException("intArray");
