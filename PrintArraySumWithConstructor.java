@@ -11,8 +11,8 @@ public class PrintArraySumWithConstructor {
 		this.inputInteger2Check = inputInteger2Check;
 		this.intArray = intArray;
 	}
-	
-	public static void printArraySum() {
+	//removed static so it cannot be called from outside, you need to construct the object to call this method.
+	public void printArraySum() {
 		int sum = 0;
 		
 		for (int i=0; i<intArray.length; i++) {
@@ -27,7 +27,8 @@ public class PrintArraySumWithConstructor {
 		}
 		System.out.print("Sum:\t" + sum);;
 	}
-	
+	//removed static so it cannot be called from outside, you need to construct the object to call this method.
+	//Also changed the return vartiable...
 	public boolean arrayContainsInput() {
 		boolean arrayContainsInput = false;		
 		for (int i=0; i<intArray.length; i++) {
